@@ -1,0 +1,7 @@
+garums = input("Garums?")
+platums = input("Platums?")
+augstums = input("Augstums?")
+garums = float(garums)
+platums = float(platums)
+augstums = float(augstums)
+print(f"Telpas izmērs ir {garums*platums*augstums} m3")
