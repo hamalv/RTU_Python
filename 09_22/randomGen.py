@@ -10,4 +10,4 @@ def RandomGen(name):
         name.append(rand.randint(r_start,r_stop))
 
 def sum_prod(seq_a, seq_b):
-    print(f"1b) sum_prod: {math.prod(seq_a) * math.prod(seq_b)}")
+    print(f"sum_prod: {math.prod(seq_a) * math.prod(seq_b)}")
