@@ -35,6 +35,9 @@ def pie_chart(data_list):
     ax1.pie(sizes, labels=labels, autopct='%1.2f%%', startangle=90)
     ax1.axis('equal')
     plt.show()
+    
+    plt.bar(labels, sizes)
+    plt.show()
 
 def main():
     dice_sum()
