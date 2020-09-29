@@ -16,7 +16,7 @@ def dice_sum():
 def pie_chart(data_list):
     data_list = data_list
     cnt = Counter(data_list)
-    print(cnt)
+    # print(cnt)
     dist_keys = Counter(data_list).keys()
     
     labels = []
@@ -33,7 +33,6 @@ def pie_chart(data_list):
 
 def main():
     dice_sum()
-    print(l)
     pie_chart(l)
 
 if __name__ == "__main__":
