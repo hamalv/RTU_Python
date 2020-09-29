@@ -1,4 +1,5 @@
 import random as ran
+import numpy as np
 import matplotlib.pyplot as plt
 from collections import Counter
 
@@ -10,7 +11,11 @@ def dice_sum():
     for _ in range(0,num_total):
         num1 = ran.randrange(num_start, num_end)
         num2 = ran.randrange(num_start, num_end)
-        l.append(num1+num2)
+        num3 = ran.randrange(num_start, num_end)
+        num4 = ran.randrange(num_start, num_end)
+        num5 = ran.randrange(num_start, num_end)
+        num6 = ran.randrange(num_start, num_end)
+        l.append(num1+num2+num3+num4+num5+num6)
     return l
 
 def pie_chart(data_list):
