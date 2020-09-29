@@ -24,19 +24,19 @@ def pie_chart(data_list):
     # print(cnt)
     dist_keys = Counter(data_list).keys()
     
-    labels = []
-    sizes = []
+    # labels = []
+    # sizes = []
     
-    for num in dist_keys:
-        labels.append(num)
-        sizes.append(cnt[num])
+    # for num in dist_keys:
+    #     labels.append(num)
+    #     sizes.append(cnt[num])
     
     fig1, ax1 = plt.subplots()
-    ax1.pie(sizes, labels=labels, autopct='%1.2f%%', startangle=90)
+    ax1.pie(dist_keys.values(), labels=dist_keys.keys(), autopct='%1.2f%%', startangle=90)
     ax1.axis('equal')
     plt.show()
     
-    plt.bar(labels, sizes)
+    plt.bar(dist_keys.keys(), dist_keys.values())
     plt.show()
 
 def main():
