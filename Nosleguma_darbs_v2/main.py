@@ -1,9 +1,8 @@
 import requests
 import time
-import pandas as pd
+from win10toast import ToastNotifier
 from bs4 import BeautifulSoup
 import mysql.connector
-import re as regexp
 
 mydb = mysql.connector.connect(
                                 host="localhost",
@@ -12,8 +11,14 @@ mydb = mysql.connector.connect(
                                 database="ss_sludinajumi")
 db = mydb.cursor()
 
-url = "https://www.ss.com/lv/real-estate/flats/ogre-and-reg/ogre/sell/"
+url = "https://www.ss.com/lv/real-estate/flats/riga/centre/sell/"
 rss = "rss/"
+
+# date & time
+def select_time_now():
+    t = time.localtime()
+    current_time = time.strftime("%H:%M:%S", t)
+    return current_time
 
 # DB
 def db_select(sql_query):
@@ -24,7 +29,6 @@ def db_select(sql_query):
 def db_insert(sql_query, sql_values):
     db.execute(sql_query, sql_values)
     mydb.commit()
-    print("Dati pievienoti DB")
 
 
 # html
@@ -32,17 +36,51 @@ def get_html(url):
     req = requests.get(url)
     return req.text
 
+def get_item_once(soup):
+    items = soup.find("item")
+    item_date = items.pubdate.text
+    item_url = items.description.a["href"]
+    get_item_data(item_url, item_date)
 
+def get_item(soup, last_row_date):
+    time_now = select_time_now()
 
-def get_item(soup):
-    items = soup.find_all("item")
-    for item in items:
-        item_url = item.description.a["href"]
-        item_date = item.pubdate.text
-        print("-----------------------------------------------------------")
-        print(item_url) 
+    items = soup.find("item")
+    item_date = items.pubdate.text
+
+    last_inserted_date = last_row_date
+    item_url = items.description.a["href"]
+
+    if item_date == last_inserted_date:
+        print(f"Time: {time_now} Visi ieraksti ir saglabati. Pedeja ieraksta datums: {last_inserted_date}")
+    else:
         get_item_data(item_url, item_date)
-        time.sleep(0.5)
+        print("------------------------------------------------------------------")
+        print(f"!!!   Jauns ieraksts   !!! \nDatums: {item_date} \nUrl: {item_url} \nTime: {time_now}")
+        print("------------------------------------------------------------------")
+        toaster = ToastNotifier()
+        toaster.show_toast("Jauns dzīvoklis.", f"\nDatums: {item_date} \nUrl: {item_url}\nTime: {time_now}")
+
+
+
+
+    #############################################################
+    # Sākumā biju uztaisījis, ka ielasa visus itemus un to datus pēc url,  
+    # bet sapratu, ka tā informācija man nav aktuāla, jo mani  
+    # interesē ieraudzīt sludinājumu uzreiz pēc tā ievietošanas portālā.
+    
+    # items = soup.find_all("item")
+    # for item in items:
+    #     item_url = item.description.a["href"]
+    #     item_date = item.pubdate.text
+    #     print(item_url) 
+    #     get_item_data(item_url, item_date)
+    #     time.sleep(0.5)
+
+    #############################################################
+
+
+
 
 def get_item_data(item_url, item_date):
     item_html = BeautifulSoup(get_html(item_url), 'lxml')
@@ -72,18 +110,26 @@ def get_item_data(item_url, item_date):
     
     sql = "INSERT INTO ss_sludinajumi.dzivokli_ogre (date, rajons, pilseta, iela, istabas, kvm, stavs, cena, url) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
     sql_val = (date, rajons, pilseta, iela, istabas, kv_m, stavs, cena, url)
-
     db_insert(sql, sql_val)
 
 
-
-
 def main():
-    soup = BeautifulSoup(get_html(url+rss), 'lxml')
-    print("=======================================================================")
-    get_item(soup)
-    
+    only_once = False
+    if only_once == False:
+        soup = BeautifulSoup(get_html(url+rss), 'lxml')
+        get_item_once(soup)
+        only_once = True
 
+    while True:
+        soup = BeautifulSoup(get_html(url+rss), 'lxml')
+
+        last_row_id = db_select("SELECT max(id) from dzivokli_ogre")
+        last_row_db_id = last_row_id[0][0]
+        last_row = db_select(f"SELECT * from dzivokli_ogre where id={last_row_db_id}")
+        last_row_date = last_row[0][1]
+        
+        get_item(soup, last_row_date)
+        time.sleep(60)
     
 
 

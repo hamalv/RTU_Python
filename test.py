@@ -1,5 +1,12 @@
-import re as re
+# from win10toast import ToastNotifier
+# from datetime import datetime
+# now = datetime.now().time()
+# toaster = ToastNotifier()
+# url = "https://www.ss.com/lv/real-estate/flats/riga/centre/sell/"
+# toaster.show_toast("Jauns dzīvoklis.", f"\nDatums: datums \nUrl: {url}\nTime: {now}")
 
-html_code = '<div style="float:right;margin:0px 0px 20px 20px;" id="content_sys_div_msg"></div>2.0 125 KW Quattro, konkrētāk zvanot.<br><br><table cellpadding=0 cellspacing=0 border=0 width="100%" class="options_list"><tr><td width="50%" valign=top>'
-text = re.search('div>[a-zāčēģīķļņšūžA-ZĀČĒĢĪĶĻŅŠŪŽ0-9QWY., ]+<br><br><table', html_code)
-print(text)
+
+import time
+
+print(current_time)
+
