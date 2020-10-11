@@ -1,10 +1,5 @@
-from datetime import datetime
+import re as re
 
-# datetime object containing current date and time
-now = datetime.now()
- 
-print("now =", now)
-
-# dd/mm/YY H:M:S
-dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
-print("date and time =", dt_string)	
+html_code = '<div style="float:right;margin:0px 0px 20px 20px;" id="content_sys_div_msg"></div>2.0 125 KW Quattro, konkrētāk zvanot.<br><br><table cellpadding=0 cellspacing=0 border=0 width="100%" class="options_list"><tr><td width="50%" valign=top>'
+text = re.search('div>[a-zāčēģīķļņšūžA-ZĀČĒĢĪĶĻŅŠŪŽ0-9QWY., ]+<br><br><table', html_code)
+print(text)
