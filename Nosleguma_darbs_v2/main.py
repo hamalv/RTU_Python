@@ -27,7 +27,7 @@ def select_time_now():
 
 # DB
 def db_select(sql_query):
-    sql = db.execute(sql_query)
+    db.execute(sql_query)
     result = db.fetchall()
     return result
 
