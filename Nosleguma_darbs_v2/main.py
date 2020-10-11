@@ -1,3 +1,8 @@
+# Lai pārbaudītu vai funkcija strādā, nepieciešams ieimportēt DB, 
+# sql fails pielikumā, un palaižot py failu izdzēst ierakstu ar ID 2. 
+# Pie nākamās cikla vajadzētu parādīties paziņojumam par jaunu ierakstu. 
+
+
 import requests
 import time
 from win10toast import ToastNotifier

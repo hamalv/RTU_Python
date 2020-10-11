@@ -42,3 +42,9 @@ CREATE TABLE IF NOT EXISTS `dzivokli_ogre` (
   `url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+INSERT INTO `dzivokli_ogre` (`id`, `date`, `rajons`, `pilseta`, `iela`, `istabas`, `kvm`, `stavs`, `cena`, `url`) VALUES
+(1, 'Sun, 11 Oct 2020 14:40:49 +0300', 'Rīga', 'centrs', 'Miera 87 [Karte]', '2', '55 m²', '2/2', '93 000 € (1 690.91 €/m²)', 'https://www.ss.com/msg/lv/real-estate/flats/riga/centre/adhlf.html'),
+(2, 'Sun, 11 Oct 2020 18:29:34 +0300', 'Rīga', 'centrs', 'Mālpils 2 [Karte]', '2', '41 m²', '4/5', '68 000 € (1 658.54 €/m²)', 'https://www.ss.com/msg/lv/real-estate/flats/riga/centre/aglhb.html');
+COMMIT;
