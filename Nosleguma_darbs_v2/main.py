@@ -16,7 +16,7 @@ mydb = mysql.connector.connect(
                                 database="ss_sludinajumi")
 db = mydb.cursor()
 
-url = "https://www.ss.com/lv/real-estate/flats/riga/centre/sell/"
+url = "https://www.ss.com/lv/real-estate/flats/ogre-and-reg/sell/"
 rss = "rss/"
 
 # date & time
